@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UploadVideoView">
+            <connections>
+                <outlet property="btn_Reset_Outlet" destination="OxX-z9-OCb" id="Cuk-OI-MFO"/>
+                <outlet property="btn_Selected_new_Category_Outlet" destination="We4-sK-7QN" id="tFQ-YB-pHl"/>
+                <outlet property="btn_Upload_Outlet" destination="FFp-8h-oTJ" id="2fL-ov-c5T"/>
+                <outlet property="circular_Progress_View" destination="l9M-mG-ALF" id="8b0-RN-90J"/>
+                <outlet property="cut_Sec" destination="1w1-Gv-NKX" id="Eub-RC-zik"/>
+                <outlet property="image_AddStory_Outlet" destination="26f-rh-CCO" id="vhJ-L3-Z9S"/>
+                <outlet property="image_Select_NewCategory" destination="OMn-D7-hCw" id="d87-vT-XNV"/>
+                <outlet property="image_Title_Outlet" destination="hIN-r4-XvO" id="t5k-ef-iqb"/>
+                <outlet property="img_ForSuccess_Unsuccess" destination="z7n-qo-dUl" id="VPY-Px-QZc"/>
+                <outlet property="img_View_Selected_File_Outlet" destination="DaI-Qm-bkG" id="yR9-yC-hZN"/>
+                <outlet property="lbl_AddStory_Outlet" destination="qys-qh-1vG" id="yHZ-E1-cPy"/>
+                <outlet property="lbl_Select_new_Category" destination="fla-w1-6Wl" id="MrB-0y-Bwu"/>
+                <outlet property="lbl_Title" destination="ECe-iv-gjk" id="F9R-DK-IrI"/>
+                <outlet property="lbl_finalPicker_Selected" destination="1h9-Jr-yz0" id="0oB-7N-o0t"/>
+                <outlet property="lbl_output_category" destination="sfa-wM-dQK" id="M5J-Ml-Mjd"/>
+                <outlet property="lbl_selected_File_Outlet" destination="smj-SM-o9x" id="uJ4-R6-Cvd"/>
+                <outlet property="progressView" destination="uyK-6z-TBv" id="9fv-OE-yi7"/>
+                <outlet property="segment_Outlet" destination="hr9-GU-8Bx" id="CgD-kl-npC"/>
+                <outlet property="txt_Title" destination="bHa-KM-qmw" id="jKd-0J-twa"/>
+                <outlet property="txt_View" destination="M59-Ig-G8u" id="nmt-gj-TDd"/>
+                <outlet property="view" destination="CB8-MG-AYb" id="oqq-Mv-AKE"/>
+                <outlet property="view_ForSuccess_Unsuccess" destination="NH4-hZ-Pgi" id="uZZ-AU-yQd"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="CB8-MG-AYb">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="backgroundVideo3.5.png" translatesAutoresizingMaskIntoConstraints="NO" id="CAa-iT-J4I">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DQ-gV-hTd">
+                    <rect key="frame" x="275" y="27" width="21" height="21"/>
+                    <state key="normal" backgroundImage="main_setting.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="setting_Tapped:" destination="-1" eventType="touchUpInside" id="YNp-t8-KNy"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4CV-Kh-4pr">
+                    <rect key="frame" x="16" y="27" width="54" height="21"/>
+                    <state key="normal" backgroundImage="backbtni5_New.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="back_Tapped:" destination="-1" eventType="touchUpInside" id="31f-vW-P7B"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select news category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fla-w1-6Wl">
+                    <rect key="frame" x="16" y="173" width="177" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Selected file" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smj-SM-o9x">
+                    <rect key="frame" x="16" y="109" width="138" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECe-iv-gjk">
+                    <rect key="frame" x="16" y="241" width="177" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add story" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qys-qh-1vG">
+                    <rect key="frame" x="16" y="308" width="177" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Upload news" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlc-mW-yXi">
+                    <rect key="frame" x="101" y="27" width="118" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hr9-GU-8Bx">
+                    <rect key="frame" x="16" y="76" width="284" height="29"/>
+                    <segments>
+                        <segment title="Capture video"/>
+                        <segment title="Browse video"/>
+                    </segments>
+                    <connections>
+                        <action selector="segmentController_Handler:" destination="-1" eventType="valueChanged" id="rLP-Hv-rZF"/>
+                    </connections>
+                </segmentedControl>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhl-Pk-clk">
+                    <rect key="frame" x="0.0" y="64" width="320" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addstroy_textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="26f-rh-CCO">
+                    <rect key="frame" x="16" y="332" width="287" height="96"/>
+                </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M59-Ig-G8u">
+                    <rect key="frame" x="21" y="336" width="275" height="88"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="q1L-R9-76q"/>
+                    </connections>
+                </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="hIN-r4-XvO">
+                    <rect key="frame" x="16" y="264" width="284" height="38"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="categorytextfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="OMn-D7-hCw">
+                    <rect key="frame" x="16" y="196" width="284" height="38"/>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Choose Category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfa-wM-dQK" customClass="IQDropDownTextField">
+                    <rect key="frame" x="20" y="196" width="284" height="38"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="dE7-a4-0vV"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bHa-KM-qmw">
+                    <rect key="frame" x="20" y="268" width="274" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="M9x-GF-EWb"/>
+                    </connections>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="browse_video_textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="DaI-Qm-bkG">
+                    <rect key="frame" x="16" y="129" width="284" height="34"/>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h9-Jr-yz0">
+                    <rect key="frame" x="24" y="132" width="238" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1w1-Gv-NKX">
+                    <rect key="frame" x="265" y="131" width="39" height="30"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cut_Selected_FileTapped:" destination="-1" eventType="touchUpInside" id="EBI-c8-XII"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OxX-z9-OCb">
+                    <rect key="frame" x="16" y="438" width="110" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" backgroundImage="resetbtn.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="reset_Tapped:" destination="-1" eventType="touchUpInside" id="2kK-yJ-8QK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFp-8h-oTJ">
+                    <rect key="frame" x="139" y="438" width="110" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" backgroundImage="uploadbtn.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="upload_Tapped:" destination="-1" eventType="touchUpInside" id="XW9-2v-rKh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <view contentMode="scaleToFill" id="l9M-mG-ALF" customClass="PICircularProgressView">
+            <rect key="frame" x="0.0" y="0.0" width="175" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="uyK-6z-TBv">
+            <rect key="frame" x="0.0" y="0.0" width="192" height="2"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </progressView>
+        <view contentMode="scaleToFill" id="NH4-hZ-Pgi">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="unsuccess3.5.png" translatesAutoresizingMaskIntoConstraints="NO" id="z7n-qo-dUl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="We4-sK-7QN">
+            <rect key="frame" x="0.0" y="0.0" width="276" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal">
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="btn_Selected_new_Category_Tapped:" destination="-1" eventType="touchUpInside" id="Zre-NJ-n3U"/>
+            </connections>
+            <point key="canvasLocation" x="194" y="251"/>
+        </button>
+        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8YG-f9-5gp">
+            <rect key="frame" x="0.0" y="0.0" width="238" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="177" y="350.5"/>
+        </label>
+    </objects>
+    <resources>
+        <image name="addstroy_textfield.png" width="579" height="260"/>
+        <image name="backbtni5_New.png" width="108" height="41"/>
+        <image name="backgroundVideo3.5.png" width="640" height="960"/>
+        <image name="browse_video_textfield.png" width="579" height="60"/>
+        <image name="categorytextfield.png" width="579" height="60"/>
+        <image name="main_setting.png" width="31" height="31"/>
+        <image name="resetbtn.png" width="231" height="81"/>
+        <image name="textfield.png" width="579" height="60"/>
+        <image name="unsuccess3.5.png" width="640" height="960"/>
+        <image name="uploadbtn.png" width="231" height="81"/>
+    </resources>
+</document>
