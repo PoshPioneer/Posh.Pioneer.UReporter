@@ -125,7 +125,7 @@
     {
         NSString *progressString = [NSString stringWithFormat:@"%.0f", _progress * 100.0];
         
-        CGFloat fontSize = radius;
+        CGFloat fontSize = 25; // radius ==> replace with 25
         UIFont *font = [_font fontWithSize:fontSize];
         
         CGFloat diagonal = 2 * (radius - circleWidth);

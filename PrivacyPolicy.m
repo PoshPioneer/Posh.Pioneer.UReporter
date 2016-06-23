@@ -1,6 +1,6 @@
 //
 //  PrivacyPolicy.m
-//  TOIAPP
+//  pioneer
 //
 //  Created by Valeteck on 31/07/14.
 //  Copyright (c) 2014 CYNOTECK. All rights reserved.
@@ -8,7 +8,15 @@
 
 #import "PrivacyPolicy.h"
 #import "Setting_Screen.h"
-@interface PrivacyPolicy ()
+#import "DataClass.h"
+
+
+@interface PrivacyPolicy () {
+    
+    
+    DataClass * objectDataClass;
+    
+}
 
 @end
 
@@ -28,7 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"privacy" ofType:@"html"] ;
+    objectDataClass = [DataClass getInstance];
+    
+    
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"Privacy" ofType:@"html"] ;
     NSLog(@"htmlFile = %@",htmlFile);
     NSString* htmlString = [[NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil] copy];
     
@@ -46,21 +57,13 @@
 
 }
 
-
--(void)viewWillAppear:(BOOL)animated{
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    //self.scroll_View.frame=CGRectMake(0, 0, 320, 568);
-//    self.scroll_View.contentSize = CGSizeMake(320, 6559);
-//    [scroll_View setBackgroundColor:[UIColor clearColor]];
-//    scroll_View.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-//    scroll_View.clipsToBounds = YES;
-//    scroll_View.scrollEnabled = YES;
-//    [self.view addSubview:self.scroll_View];
-//    
-//    [scroll_View addSubview:bck_View];
-
+    [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
     
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {

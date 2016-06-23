@@ -32,6 +32,7 @@
 @interface IQDropDownTextField () <UIPickerViewDelegate, UIPickerViewDataSource>
 {
     NSArray *_ItemListsInternal;
+    
 }
 
 @property (nonatomic, strong) UIPickerView *pickerView;
@@ -55,6 +56,8 @@
 @synthesize minimumDate = _minimumDate;
 @synthesize maximumDate = _maximumDate;
 @synthesize optionalItemText = _optionalItemText;
+@synthesize checkingmMaritalStatus;
+
 
 @dynamic delegate;
 
@@ -76,7 +79,10 @@
     [self setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
 	
-	self.optionalItemText = NSLocalizedString(@"Select", nil);
+    
+    
+    self.optionalItemText = NSLocalizedString( @"",nil);// changing select to gender.
+    
 	
     if ([[[self class] appearance] dateFormatter])
     {
@@ -248,9 +254,14 @@
             break;
     }
 }
+-(void)testing :(NSString*)checkingStatus {
+    
+    
+}
 
-- (void)setItemList:(NSArray *)itemList
-{
+
+- (void)setItemList:(NSArray *)itemList{
+    
     _itemList = itemList;
     
     //Refreshing pickerView
@@ -426,13 +437,14 @@
 
 -(NSString *)optionalItemText
 {
+    
     if (_optionalItemText.length)
     {
         return _optionalItemText;
     }
     else
     {
-        return NSLocalizedString(@"Select", nil);
+        return NSLocalizedString(@"", nil);// change select to gender
     }
 }
 
@@ -451,6 +463,7 @@
 }
 
 - (void) _updateOptionsList {
+    
 	if (_isOptionalDropDown)
 	{
 		NSArray *array = [NSArray arrayWithObject:self.optionalItemText];

@@ -12,8 +12,17 @@
 #import "IQActionSheetPickerView.h"
 #import "MobileVarification.h"
 #import "UploadView.h"
-#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#import "DataClass.h"
+#import <CommonCrypto/CommonHMAC.h>
+#import "Base64.h"
+#import <CommonCrypto/CommonDigest.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
 
+
+
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define NUMBERS_ONLY @"1234567890"
 
 @interface EditProfile ()//<IQActionSheetPickerViewDelegate>
 {
@@ -25,7 +34,21 @@
     
     BOOL checkBoolForRestValuePolitical;
     BOOL checkBoolForRestVlaueProsecutin;
-   
+    DataClass * objectDataClass;
+    
+    NSString *str;
+    NSString *Finaltoken;
+    // used in date .
+    NSString* firstDate;
+    NSString * secondDate;
+    NSDate *now2;
+    NSDateFormatter *dateFormatter1;
+    NSDate * mow3;
+    NSDateFormatter *dateFormatter2;
+    NSDateFormatter *df;
+    NSDate *date1;
+    NSDate *date2;
+    long timediff;
     
         
 }
@@ -58,36 +81,81 @@
 {
     [super viewDidLoad];
     [self CallMethodForPicker];
+    objectDataClass =[DataClass getInstance];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-   /* [Outlet_PoliticalGroupYes setBackgroundImage:[UIImage imageNamed:@"uncheck_radial.png"] forState:UIControlStateNormal];
-    [Outlet_PoliticalGroupNO setBackgroundImage:[UIImage imageNamed:@"uncheck_radial.png"] forState:UIControlStateNormal];*/
+
     [Outlet_ProsecutionYes setBackgroundImage:[UIImage imageNamed:@"uncheck_radial.png"] forState:UIControlStateNormal];
     [Outlet_ProsecutionNO setBackgroundImage:[UIImage imageNamed:@"uncheck_radial.png"] forState:UIControlStateNormal];
 
     
-    self.scrollView.frame=CGRectMake(0, 86, 320, 700);
-    self.scrollView.contentSize = CGSizeMake(320,1300);
+//    self.scrollView.frame=CGRectMake(0, 86, 320, 700);
+   // [self settingBorderOfTextFields];// for setting the border color.
+    
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width,715);//1300, 706
+    
+
     [scrollView setBackgroundColor:[UIColor clearColor]];
     scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     scrollView.clipsToBounds = YES;
     scrollView.scrollEnabled = YES;
-    [self.view addSubview:self.scrollView];
+    addViewOnScrollView.frame = scrollView.frame;
     [scrollView addSubview:addViewOnScrollView];
     
     scrollView.userInteractionEnabled=YES;
     scrollView.exclusiveTouch=YES;
     
-    [txt_Email setUserInteractionEnabled:NO];
+    [txt_Email setUserInteractionEnabled:YES];
     [txt_Phone setUserInteractionEnabled:YES];
     
     [self getAllDetails];
+
     
 }
-
-
--(void)viewWillAppear:(BOOL)animated{
+/*
+-(void)settingBorderOfTextFields {
     
+// for setting the border color. and width
+    txt_First_Name.layer .borderWidth =0.3f;
+    txt_Age.layer.borderWidth =0.3f;
+    //txt_Gender.layer.borderWidth =0.3f;
+    txt_Email.layer.borderWidth =0.3f;
+    txt_Phone.layer.borderWidth =0.3f;
+    txt_Special_Interests.layer.borderWidth=0.3f;
+    txt_Occupation.layer.borderWidth= 0.3f;
+    txt_MaritalStatus.layer.borderWidth =0.3f;
+    txt_LanguageSpoken.layer.borderWidth= 0.3f;
+    txt_adderss.layer.borderWidth =0.3f;
+    txt_Education.layer.borderWidth=0.3f;
+
+    
+    
+    txt_First_Name.layer.borderColor = [UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_Age.layer.borderColor  =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_Email.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    //txt_Gender.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_Phone.layer.borderColor = [UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_adderss.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_MaritalStatus.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_Occupation.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_LanguageSpoken.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_Education.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    txt_Special_Interests.layer.borderColor =[UIColor colorWithRed:197.0f/255.0f green:197.0f/255.0f blue:198.0f/255.0f alpha:1.0] .CGColor;
+    
+}
+*/
+-(void)viewWillAppear:(BOOL)animated{
+ 
+    [super viewWillAppear:animated];
+
     checkReset=0;
+    
+   // self.showTemperature.text =[NSString stringWithFormat:@"%0.0f", objectDataClass.temperature];
     
     ///// Dismiss KeyBord touch of View
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -95,12 +163,6 @@
     ///// END..
 
 }
-
--(void)viewDidAppear:(BOOL)animated{
-    
-
-}
-
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
     
@@ -174,20 +236,6 @@
         
     }else{
         
-        
-        
-        /*
-         
-         try_AgainInternet_Check = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Internet connection is not available. Please try again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
-         [try_AgainInternet_Check show];
-         
-         
-         */
-        
-      /*          goBackAlert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to cancel the changes in the profile?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
-        [goBackAlert show];
-        */
-        
         [self.navigationController popViewControllerAnimated:YES];
     }
 
@@ -200,11 +248,20 @@
     
     [self.view endEditing:YES];
 
-    if ([txt_First_Name.text isEqualToString:reset_FirstName] &&[txt_Last_Name.text isEqualToString:reset_LastName] && [txt_Email.text isEqualToString:reset_Email] && [txt_Phone.text isEqualToString:reset_Phone]  && [txt_Age.text isEqualToString:reset_Age] && [txt_Gender.text isEqualToString:reset_Gender] && [txt_adderss.text isEqualToString:reset_adderss] && [txt_MaritalStatus.text isEqualToString:reset_MaritalStatus] && [txt_Occupation.text isEqualToString:reset_Occupation] && [txt_LanguageSpoken.text isEqualToString:reset_LanguageSpoken] && [txt_Education.text isEqualToString:reset_Education] && [txt_Special_Interests.text isEqualToString:reset_Special_Interests] && [localPoliticalStr isEqualToString:reset_radiopolitical] && [localProsecutionStr isEqualToString:reset_radioprosecution] &&(checkReset%2==0)  ) {
+    if ([txt_First_Name.text isEqualToString:reset_FirstName] /*&&[txt_Last_Name.text isEqualToString:reset_LastName]*/ && [txt_Email.text isEqualToString:reset_Email] && [txt_Phone.text isEqualToString:reset_Phone]  && [txt_Age.text isEqualToString:reset_Age] && [txt_Gender.text isEqualToString:reset_Gender] && [txt_adderss.text isEqualToString:reset_adderss] && [txt_MaritalStatus.text isEqualToString:reset_MaritalStatus] && [txt_Occupation.text isEqualToString:reset_Occupation] && [txt_LanguageSpoken.text isEqualToString:reset_LanguageSpoken] && [txt_Education.text isEqualToString:reset_Education] && [txt_Special_Interests.text isEqualToString:reset_Special_Interests] && [localPoliticalStr isEqualToString:reset_radiopolitical] && [localProsecutionStr isEqualToString:reset_radioprosecution] &&(checkReset%2==0)  ) {
         
         
-        UIAlertView * DoNothing_alrt = [[UIAlertView alloc]initWithTitle:@"Alert!" message:@"There is no change in profile details" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
+       /* UIAlertView * DoNothing_alrt = [[UIAlertView alloc]initWithTitle:@"Alert!" message:@"There is no change in profile details" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil,nil];
         [DoNothing_alrt show];
+        */
+        
+        UIAlertController *DoNothing_alrt = [UIAlertController alertControllerWithTitle:@"Alert!" message:@"There is no change in profile details" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * doNothingAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * alert ){
+            
+            
+        }];
+        [DoNothing_alrt addAction:doNothingAction];
+        [self presentViewController:DoNothing_alrt  animated:YES completion:nil];
         
         
         
@@ -214,113 +271,45 @@
     } else{
         
        
-        
+        if (switch_LocationEnable.on) {
+            
+            check_Uncheck_Bool=YES;
+            
+        }else{
+            
+            check_Uncheck_Bool=NO;
+            
+        }
+
         
         
         NSLog(@"text Phone === %@",txt_Phone);
         NSLog(@"rest number ==%@",reset_Phone);
         
-    NSString *server = [[NSUserDefaults standardUserDefaults]stringForKey:@"connection_Internet"];
+    // NSString *server = [[NSUserDefaults standardUserDefaults]stringForKey:@"connection_Internet"];
     
-    if ([server isEqualToString:@"reachable"]) {
+    if ([Utility connected] == YES) {
+    
         
-        if ([txt_First_Name.text length]==0 || [txt_Last_Name.text length]==0 || [txt_Email.text length]==0 || [txt_Phone.text length]==0 || [txt_Phone.text length]!=10 || [txt_Age.text length]== 0 || [txt_Gender.text length] ==0 || [txt_MaritalStatus.text length]== 0 || [txt_adderss.text length]== 0 || [txt_Occupation.text length]==0 || [txt_LanguageSpoken.text length]== 0 || [txt_Education.text length]== 0 || [txt_Special_Interests.text length]==0 /*|| ([[Outlet_PoliticalGroupNO currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]] && [[Outlet_PoliticalGroupYes currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]]) */ || ([[Outlet_ProsecutionYes currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]] && [[Outlet_ProsecutionNO currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]]))  {
-            
-            if ([txt_First_Name.text length]==0) {
-                
-                messageDisplayForAlert = @"Please enter your first name";
-                
-            }else if ([txt_Last_Name.text length]==0){
-                
-                messageDisplayForAlert= @"Please enter your last name";
-                
-            }else if ([txt_Email.text length]==0){
-                
-                
-                messageDisplayForAlert= @"Please enter an email id";
-                
-            }else if ([txt_Phone.text length]==0){
-                
-                messageDisplayForAlert= @"Please enter a mobile number";
-            }
-            
-            else if([txt_Phone.text length]!=10){
-                
-                messageDisplayForAlert = @"Please enter a valid mobile number";
-            }
-            else if ([txt_Age.text length] == 0)
-            {
-                messageDisplayForAlert = @"Please enter your age";
-            }
-            else if ([txt_Gender.text length]==0)
-            {
-                messageDisplayForAlert = @"Please select your gender";
-            }
-            else if ([txt_adderss.text length] ==0)
-            {
-                messageDisplayForAlert = @"Please enter your city";
-            }
-            else if ([txt_MaritalStatus.text length]==0){
-                
-                messageDisplayForAlert = @"Please select your marital status";
-            }
-            else if ([txt_Occupation.text length]==0){
-                
-                messageDisplayForAlert = @"Please enter your occupation";
-            }
-            else if ([txt_LanguageSpoken.text length]==0)
-            {
-                messageDisplayForAlert = @"Please enter your spoken language";
-            }
-            else if ([txt_Education.text length] ==0)
-            {
-                messageDisplayForAlert = @"Please enter your highest level of education";
-            }
-            else if ([txt_Special_Interests.text length] ==0)
-            {
-                messageDisplayForAlert = @"Please enter special interests";
-            }
-//            else if (([[Outlet_PoliticalGroupNO currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]] && [[Outlet_PoliticalGroupYes currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]])){
-//                
-//                messageDisplayForAlert = @"Please select option for member of any political group.";
-//            }
-            else if ( ([[Outlet_ProsecutionYes currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]] && [[Outlet_ProsecutionNO currentBackgroundImage] isEqual:[UIImage imageNamed:@"uncheck_radial.png"]])){
-                
-                messageDisplayForAlert = @"Please select option for prosecution if any.";
-            }
-
-            
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:messageDisplayForAlert delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-            
-            
-        }else if ([txt_Age.text intValue]<=0){
-        
-        
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Plaese enter  a valid age" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-        
-        } else if (![self validateEmail:txt_Email.text]){
-            
-            messageDisplayForAlert=@"Please enter a valid email id";
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Alert" message:messageDisplayForAlert delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-            
-        }else{
-            
-            
             [self callMethodFor_Submittion];
             
            // [self ServiceOTP];
             
-        }
+       // }
         
         
     }else{
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message!" message:@"Internet connection is not available. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+       /* UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message!" message:@"Internet connection is not available. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
-        
+        */
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert!" message:@"Internet connection is not available. Please try again." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * doNothingAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * alert ){
+            
+            
+        }];
+        [alert addAction:doNothingAction];
+        [self presentViewController:alert  animated:YES completion:nil];
     }
         
     }
@@ -341,7 +330,9 @@
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.addViewOnScrollView setUserInteractionEnabled:NO];
-    
+    [self.view setUserInteractionEnabled:NO];
+    spinner=[SpinnerView loadSpinnerIntoView:self.view];
+
     // getting .....
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *  KEY_PASSWORD = @"com.toi.app.password";
@@ -351,10 +342,17 @@
     
    // NSString *toi = @"TOI";
     
+    
+    
     // http://timesgroupcrapi.cloudapp.net   http://timesgroupcrapi.cloudapp.net/api/UserDet
     
-    NSString* urlString = [NSString stringWithFormat:@"http://timesgroupcrapi.cloudapp.net/api/userdetails?deviceId=%@&Source=%@", idfv,@"Maharashtra"];
    
+    
+    
+    NSString* urlString = [NSString stringWithFormat:@"%@%@/%@?deviceId=&Source=&token=%@",kBaseURL,kAPI,kUserDetails,[GlobalStuff generateToken] ];
+   
+    NSLog(@"get alldetails url --%@",urlString);
+    
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -373,8 +371,13 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self.addViewOnScrollView setUserInteractionEnabled:YES];
     
-   alert_Internet = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Internet connection is not available. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert_Internet show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        // do NOT use alert.textfields or otherwise reference the alert in the block. Will cause retain cycle
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 
     
 }
@@ -397,7 +400,7 @@
     [self.addViewOnScrollView setUserInteractionEnabled:YES];
 
     NSError* error;
-    id json = [NSJSONSerialization JSONObjectWithData:responseData
+    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:responseData
                                               options:kNilOptions
                                                 error:&error];
 
@@ -529,43 +532,66 @@
         
     }else{
         
+        
         checkServiceType=0;
-        
-        
-        
-        
         
         NSLog(@"o/p of data is =======%@",json);
         
         NSString *error_Id = [NSString stringWithFormat:@"%@",[[json valueForKey:@"data"] valueForKey:@"ErrorId"]];
-        
+        NSString *error_Message = [NSString stringWithFormat:@"%@",[[json valueForKey:@"data"] valueForKey:@"ErrorMessage"]];
+
         if ([error_Id isEqualToString:@"111"]) {
             
-            if (![reset_Phone isEqualToString:txt_Phone.text]) {
+            if (check_Uncheck_Bool) {
                 
-                [self ServiceOTP];
+                [[NSUserDefaults standardUserDefaults] setValue:@"LocationOn" forKey:@"LocationCheck"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
                 
+            }else{
                 
+                [[NSUserDefaults standardUserDefaults] setValue:@"LocationOff" forKey:@"LocationCheck"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+
             }
             
-            else{
+            [self alertMessage:error_Message];
             
-            finalAlert= [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your profile updated successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [finalAlert show];
-                
+        }else{
+            
+            [self alertMessage:error_Message];
+        }
+    }
+}
+
+-(void)alertMessage:(NSString *)message{
+    
+    
+    UIAlertController * errorAlert = [UIAlertController alertControllerWithTitle:@"Alert" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * errorAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * alert){
+        
+        for (UIViewController *controller in [self.navigationController viewControllers])
+        {
+            if ([controller isKindOfClass:[UploadView class]])
+            {
+                [self.navigationController popToViewController:controller animated:YES];
+                break;
             }
-            
         }
         
-    }
+    }];
     
+    [errorAlert addAction:errorAction];
+    [self presentViewController:errorAlert animated:YES completion:nil];
+
 }
+
 
 #pragma mark ####################################################################
 #pragma mark ################ Reset Tapped ######################################
 #pragma mark ####################################################################
 
-- (IBAction)Reset_Tapped:(id)sender {
+- (IBAction)Reset_Tapped:(id)sender {/*
 
     // setting previous values !!!!!!!!!!
     //reset_Age,reset_Gender,reset_adderss,reset_MaritalStatus,reset_Occupation,reset_LanguageSpoken,reset_Education,reset_Special_Interests
@@ -627,6 +653,12 @@
         check_Uncheck_Bool=YES;
  
     }
+    */
+    
+    NSArray* views =[self.navigationController viewControllers];
+
+    [self.navigationController popToViewController:[views objectAtIndex:1] animated:YES];
+    
     
 }
 
@@ -750,9 +782,28 @@
 
 - (IBAction)enableStateChanged:(id)sender {
     
+   
+    
+    if ([CLLocationManager  authorizationStatus] == kCLAuthorizationStatusDenied)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location Service Disabled" message:@"To re-enable, please go to Settings and turn on Location Service for this app." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * doNothingAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * alert ){
+            
+            switch_LocationEnable.on = NO;
+            
+        }];
+        [alert addAction:doNothingAction];
+        [self presentViewController:alert  animated:YES completion:nil];
+        
+    }
+    else
+    {
+    
     checkReset++;
     
     if (switch_LocationEnable.on) {
+        
+        
         check_Uncheck_Bool=YES;
         reset_CompareValeForlocationEnable=1;
         [self.view setUserInteractionEnabled:NO];
@@ -760,7 +811,10 @@
         
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+        {
+            [locationManager requestAlwaysAuthorization];
+        }
         [locationManager startUpdatingLocation];
         
         if(IS_OS_8_OR_LATER) {
@@ -784,6 +838,7 @@
         
         
     }
+  }
     
 }
 
@@ -800,6 +855,9 @@
         if ([txt_Phone.text length]>=10) {
             return NO;
         }
+        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:NUMBERS_ONLY] invertedSet];
+        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        return ([string isEqualToString:filtered]);
         
     }
     if (textField == txt_Age)
@@ -906,9 +964,9 @@
     [self.view setUserInteractionEnabled:YES];
     [spinner removeSpinner];
     check_Uncheck_Bool=NO;
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Alert" message:@"There was an error while getting the location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+//    UIAlertView *errorAlert = [[UIAlertView alloc]
+//                               initWithTitle:@"Alert" message:@"There was an error while getting the location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [errorAlert show];
 }
 
 
@@ -922,6 +980,7 @@
         NSLog(@"lat is ====%@",[NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude]);
         NSLog(@"lat is ====%@",[NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude]);
         [self getAdrressFromLatLong:currentLocation.coordinate.latitude lon:currentLocation.coordinate.longitude];
+        locationManager = nil;
         [locationManager stopUpdatingLocation];
         
         
@@ -964,8 +1023,8 @@
                                        if (!address) {
                                            
                                            check_Uncheck_Bool=NO;
-                                           UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"There was an error while getting the location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                                           [alert show];
+//                                           UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"There was an error while getting the location." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                                           [alert show];
                                            
                                        }else{
                                            check_Uncheck_Bool=YES;
@@ -1009,9 +1068,9 @@
     NSMutableDictionary *headerDict = [NSMutableDictionary dictionary];
     NSMutableDictionary *dictionaryTemp = [NSMutableDictionary dictionary];
     
-    [headerDict setValue:idfv forKey:@"DeviceId"];  // THIS WILL CHANGE & WILL USE "idfv"
-    [headerDict setValue:@":" forKey:@"UserId"];
-    [headerDict setValue:@"Maharashtra" forKey:@"Source"];
+    [headerDict setValue:@"" forKey:@"DeviceId"];  // THIS WILL CHANGE & WILL USE "idfv"idfv
+    [headerDict setValue:@"" forKey:@"UserId"];
+    [headerDict setValue:@"" forKey:@"Source"];
     
     [dictionaryTemp setValue:txt_First_Name.text forKey:@"FirstName"];
     [dictionaryTemp setValue:txt_Email.text forKey:@"Email"];
@@ -1052,6 +1111,9 @@
     
     if (check_Uncheck_Bool) {
         
+       
+        
+        
         [dictionaryTemp setValue:@"true" forKey:@"IsLocationEnabled"];
         [dictionaryTemp setValue:[[NSUserDefaults standardUserDefaults]stringForKey:@"address_Default"] forKey:@"LocationDetails"];
         
@@ -1081,8 +1143,14 @@
                                                          error:&error];
     
     //timesgroupcrapi  http://timesgroupcrapi.cloudapp.net/api/UserDet
+   
     
-    NSURL *url = [NSURL URLWithString:@"http://timesgroupcrapi.cloudapp.net/api/UserDetails"];
+    
+    NSString * urlString= [NSString stringWithFormat:@"%@%@/%@?token=%@",kBaseURL,kAPI,kUserDetails,[GlobalStuff generateToken]];
+    
+    
+    NSLog(@"method for submission url--%@",urlString);
+    NSURL *url = [NSURL URLWithString: urlString];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
@@ -1109,7 +1177,15 @@
     
     //timesgroupcrapi http://timesgroupcrapi.cloudapp.net/api/UserDet
     
-    NSString* urlString = [NSString stringWithFormat:@"http://timesgroupcrapi.cloudapp.net/api/OTP/GetOTP?MobileNo=%@&Source=%@",MobNo,@"Maharashtra"];
+   // NSString * urlString = [NSString stringWithFormat:@"%@%@",@"http://prngapi.cloudapp.net/api/OTP/GetOTP?MobileNo=&Source=&token=",MobNo,Finaltoken];
+    
+   
+    
+    
+    NSString* urlString = [NSString stringWithFormat:@"%@%@/OTP/GetOTP?MobileNo=%@&Source=&token=%@",kBaseURL,kAPI,MobNo,[GlobalStuff generateToken]];
+    
+    
+    NSLog(@"url string service otp--%@",urlString);
 
     //NSString* urlString = [NSString stringWithFormat:@"http://toicj.cloudapp.net/api/OTP/GetOTP?MobileNo=%@",MobNo];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -1256,59 +1332,17 @@
 
 -(void)doneClicked:(UIBarButtonItem*)button
 {
+    
     [self.view endEditing:YES];
-}
-
-
-/*
- 
-- (IBAction)btn_genderPicker:(id)sender {
-    
-    NSLog(@"called picker");
-    [self.view endEditing:YES];
-    IQActionSheetPickerView *picker = [[IQActionSheetPickerView alloc] initWithTitle:@"Choose Gender" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    [picker setTag:5];
-    
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"MALE",@"FEMALE", nil];
-    NSMutableArray *outerArr = [NSMutableArray  array];
-    [outerArr addObject:arr];
-    [picker setTitlesForComponenets:[NSArray arrayWithArray:outerArr]];
-    [picker showInView:self.view];
     
 }
 
-- (IBAction)btn_maritalStatus:(id)sender {
-    
-    NSLog(@"called picker for Marital Status");
-    [self.view endEditing:YES];
-    IQActionSheetPickerView *picker = [[IQActionSheetPickerView alloc] initWithTitle:@"Choose Marital Status" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    [picker setTag:6];
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"MARRIED",@"UNMARRIED", nil];
-    NSMutableArray *outerArr = [NSMutableArray  array];
-    [outerArr addObject:arr];
-    [picker setTitlesForComponenets:[NSArray arrayWithArray:outerArr]];
-    [picker showInView:self.view];
-    
-}
 
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles
-{
-    switch (pickerView.tag)
-    {
-        case 5: txt_Gender.text=[titles componentsJoinedByString:@" - "];
-            break;
-        case 6:txt_MaritalStatus.text=[titles componentsJoinedByString:@" - "];
-            
-        default:
-            break;
-    }
-}
- 
- */
 
 
 -(void)viewWillDisappear:(BOOL)animated {
     
+    [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
 }
@@ -1319,15 +1353,6 @@
     [self.view  endEditing:YES];
 }
 
-/*
- if ([[NSString stringWithFormat:@"%@",[[json valueForKey:@"data"]valueForKey:@"LocationDetails"]] isEqualToString:@"<null>"]) {
- 
- NSLog(@"location is empty!");
- 
- }else{
- 
- // we are getting here location details !!!!!!!
- }
- 
- */
+
+
 @end

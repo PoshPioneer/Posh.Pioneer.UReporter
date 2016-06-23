@@ -71,16 +71,17 @@
 
     CGRect rect ;
     CGSize size = [[UIScreen mainScreen] bounds].size;
-    
-    if (size.height== 480) {
-        
-        rect = CGRectMake(0, 0, 320, 480) ;
-        
-    }else{
-        
-        rect = CGRectMake(0, 0, 320, 568) ;
+    rect = CGRectMake(0, 0, size.width, size.height) ;
 
-    }
+//    if (size.height== 480) {
+//        
+//        rect = CGRectMake(0, 0, 320, 480) ;
+//        
+//    }else if {
+//        
+//        rect = CGRectMake(0, 0, 320, 568) ;
+//
+//    }
     
    // SpinnerView *spinnerView = [[SpinnerView alloc] initWithFrame:superView.bounds];
     
@@ -112,7 +113,10 @@
     UIViewAutoresizingFlexibleBottomMargin |
     UIViewAutoresizingFlexibleLeftMargin;
 	// Place it in the middle of the view
-    indicator.center = superView.center;
+    
+  //  indicator.center = superView.center;
+    
+    [indicator setFrame:CGRectMake((size.width)/2.4, (size.height)/2.2, 50, 50)];
 	// Add it into the spinnerView
     [spinnerView addSubview:indicator];
 	// Start it spinning! Don't miss this step

@@ -1,6 +1,6 @@
 //
 //  EditProfile.h
-//  TOIAPP
+//  pioneer
 //
 //  Created by Valeteck on 31/07/14.
 //  Copyright (c) 2014 CYNOTECK. All rights reserved.
@@ -128,6 +128,8 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *addViewOnScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *showTemperature;
+
 
 
 

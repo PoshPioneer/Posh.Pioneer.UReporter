@@ -1,6 +1,6 @@
 //
 //  About.m
-//  TOIAPP
+//  pioneer
 //
 //  Created by Valeteck on 31/07/14.
 //  Copyright (c) 2014 CYNOTECK. All rights reserved.
@@ -8,7 +8,15 @@
 
 #import "About.h"
 #import "Setting_Screen.h"
-@interface About ()
+#import "DataClass.h"
+
+
+
+@interface About () {
+    
+    DataClass * objectDataClass;
+    
+}
 
 @end
 
@@ -26,11 +34,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    objectDataClass = [DataClass getInstance];
+    
     
     web_View.scrollView.scrollEnabled=YES;
     
     //aboutus.html
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"aboutus" ofType:@"html"];
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"ContactUs" ofType:@"html"];
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     [web_View loadHTMLString:htmlString baseURL:nil];
     web_View.layer.cornerRadius=2.0;
@@ -43,6 +53,7 @@
     
     
 }
+
 
 - (void)didReceiveMemoryWarning
 {

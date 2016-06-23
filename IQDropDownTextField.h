@@ -51,9 +51,11 @@ typedef enum IQDropDownMode {
 #else
 
 typedef NS_ENUM(NSInteger, IQDropDownMode) {
+    
     IQDropDownModeTextPicker,
     IQDropDownModeTimePicker,
     IQDropDownModeDatePicker,
+    
 };
 
 #endif
@@ -214,4 +216,5 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
  */
 @property (nonatomic, retain) NSDateFormatter *timeFormatter;
 
+@property  BOOL checkingmMaritalStatus;  // for checking whether it is gender or marital status. 
 @end

@@ -1,6 +1,6 @@
 //
 //  Info.h
-//  TOIAPP
+//  pioneer
 //
 //  Created by Valeteck on 12/08/14.
 //  Copyright (c) 2014 CYNOTECK. All rights reserved.
